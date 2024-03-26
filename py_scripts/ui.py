@@ -5,7 +5,7 @@ class UI():
         self.window = None
         self.size = "600x500"
         self.color = "#b0e4a4"
-        self.title = "Notif Rule34"
+        self.title = "Rule34 Notificator"
         self.ima = "0"
         self.gif = "0"
         self.vid = "0"
