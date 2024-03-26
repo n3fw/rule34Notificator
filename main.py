@@ -1,4 +1,7 @@
-import run_app as run
+import sys
+sys.path.append('py_scripts/')
+import py_scripts.run_app as run
+
 
 application = run.RunApp()
 application.launch()
