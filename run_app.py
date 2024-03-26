@@ -70,8 +70,6 @@ class RunApp():
         with open("config.ini", "w") as file:
             self.data.config.write(file)
 
-    #in case not first launch, use before update(self)
-    #order : list_for_notif(self) -> update(self) -> create_notifs(self) -> run(self)
     def list_for_notif(self):
         """
         creates a 2dim list with tag, old save of posts and 0
@@ -111,3 +109,10 @@ class RunApp():
         checks if any action has been performed on the main window
         """
         return self.ui.action_id == None
+    
+    def launch(self):
+        if self.data.is_first_launch():
+            self.data.create_config()
+        if self.page.net_check() == False:
+            self.ui.print_message("Couldn't connect to rule34 ! Try again", "Error")
+            exit()

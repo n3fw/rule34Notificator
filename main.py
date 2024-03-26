@@ -1,6 +1,7 @@
 import run_app as run
 
 application = run.RunApp()
+application.launch()
 application.list_for_notif()
 application.update()
 while True:

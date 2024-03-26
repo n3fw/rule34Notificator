@@ -5,7 +5,6 @@ import os.path
 class DataSave():
     def __init__(self) -> None:
         self.config = cg.ConfigParser()
-        self.launch = False
     
     def is_first_launch(self) -> bool:
         """
