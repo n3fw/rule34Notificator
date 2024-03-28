@@ -25,7 +25,7 @@ class RunApp():
         self.ui.main_window()
         WhatToDo = self.ui.get_action_id()
         if WhatToDo == 0:
-            if self.ui.get_tag_to_add() != None: 
+            if self.ui.get_tag_to_add() != "": 
                 tag = self.page.add_tag(self.ui.get_tag_to_add())
                 if self.page.is_tag_none() or tag == False:
                     self.ui.print_message("This tag doesn't exist or uses invalid caracters", "TagNotFound")
