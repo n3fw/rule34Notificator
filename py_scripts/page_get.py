@@ -97,7 +97,7 @@ class PageGet:
         """
         numberpage =0
         while True:
-            if len(self.r34.search([self.tag], page_id=numberpage, limit=42)) == 42:
+            if 0 < len(self.r34.search([self.tag], page_id=numberpage, limit=42)) <= 42:
                 numberpage += 100
             else:
                 break
