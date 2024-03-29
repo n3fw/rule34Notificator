@@ -17,11 +17,6 @@ class RunApp():
         return self.notifs
 
     def run(self):
-        if self.data.is_first_launch():
-            self.data.create_config()
-        if self.page.net_check() == False:
-            self.ui.print_message("Couldn't connect to rule34 ! Try again", "Error")
-            exit()
         self.ui.main_window()
         WhatToDo = self.ui.get_action_id()
         if WhatToDo == 0:
