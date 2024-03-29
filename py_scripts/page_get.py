@@ -1,5 +1,5 @@
 from http.client import InvalidURL
-from urllib.error import URLError
+from urllib.error import URLError, HTTPError
 import urllib.request
 import urllib.parse
 import ssl
@@ -67,24 +67,26 @@ class PageGet:
         req = urllib.request.Request(self.url, headers = self.hdr)
 
         if (self.error_handle(req, self.context)):
-            webUrl = urllib.request.urlopen(req, context = self.context)
+            webUrl: urllib.request._UrlopenRet = urllib.request.urlopen(req, context = self.context)
             if (webUrl.getcode() == 200):
                 return True
             else:
                 return False
         return False
         
-    def error_handle(self, link: urllib.request.Request, cont: ssl.SSLContext) -> bool:
+    def error_handle(self, link: urllib.request.Request, cont: ssl.SSLContext = None) -> bool:
         """
         handles error that may happen with encoding the url to a tag
 
         :return False if error, else True
         """
         try:
-            url = urllib.request.urlopen(link, context=cont)
+            url = urllib.request.urlopen(link)
         except InvalidURL:
             return False
         except URLError:
+            return False
+        except HTTPError:
             return False
         return True
     
