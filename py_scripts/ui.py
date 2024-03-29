@@ -168,6 +168,14 @@ class UI():
         button_notif = tk.Button(self.window, text="See notifications", command=self.set_action_to_notif, font=("Arial", 10))
         button_notif.place_configure(relx=0.40, rely=0.75, relheight=0.05, relwidth=0.2)
 
+        try:
+            image_logo = tk.PhotoImage(file="ressources/logo.png")
+            image_logo = image_logo.subsample(2, 2)
+            logo_label = tk.Label(self.window, image=image_logo)
+            logo_label.place_configure(relx = 0.25, rely = 0.15)
+        except:
+            self.print_message("Couldn't load logo image !", "Error")
+
         self.window.mainloop()
     
     def print_message(self, mess: str, wind_title: str):
