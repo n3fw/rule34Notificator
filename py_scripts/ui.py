@@ -118,7 +118,7 @@ class UI():
         self.tag_to_remove = rem_var.get()
         self.action_id = 1
     
-    def button_notif_clicked(self, notifs: list[tuple: (str, int)]):
+    def button_notif_clicked(self, notifs: list[tuple: (str, list)]):
         """
         handles the windows displaying notifications
 
@@ -126,16 +126,19 @@ class UI():
         :takes a list of tuple : ("tag", int("new posts"))
         """
         notif_window = tk.Tk()
-        notif_window.geometry("200x" + str(len(notifs) * 20 + 25))
+        notif_window.geometry("500x" + str(len(notifs) * 20 + 25))
         notif_window.title("Notifications")
         notif_window.iconbitmap(self.icon)
         notif_window.configure(bg = self.color)
 
         text_notif = ""
         for i in range (1, len(notifs) + 1):
-            text_notif += f"{notifs[i-1][0]}" + " : " + f"{notifs[i-1][1]}" + " new posts" + "\n"
+            if notifs[i-1][1] != [None, None, None]:
+                text_notif += f"{notifs[i-1][0]}" + " : " + ( (f"{notifs[i-1][1][0]}" + " new images, ") if notifs[i-1][1][0] != None else "") + ( (f"{notifs[i-1][1][1]}" + " new gifs, ") if notifs[i-1][1][1] != None else "") + ( (f"{notifs[i-1][1][2]}" + " new videos, ") if notifs[i-1][1][2] != None else "") + "\n"
+            else:
+                text_notif += f"{notifs[i-1][0]}" + " : 0 new posts" + "\n"
         notif_label = tk.Label(notif_window, padx=10, text=text_notif, background=self.color)
-        notif_label.pack(side="top", anchor="nw")
+        notif_label.pack(side="top")
         quit_button = tk.Button(notif_window, pady=5, text="Ok", command=notif_window.destroy)
         quit_button.pack(side="bottom")
 
