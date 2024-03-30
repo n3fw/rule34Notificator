@@ -1,4 +1,5 @@
 import tkinter as tk
+import ctypes as ct
 
 class UI():
     def __init__(self):
@@ -182,16 +183,8 @@ class UI():
         self.window.mainloop()
     
     def print_message(self, mess: str, wind_title: str):
-        window = tk.Tk()
-        window.title(wind_title)
-        window.iconbitmap("ressources/error_icon.ico")
-        label = tk.Label(window, text=mess, font=("Arial", 12))
-        label.pack(padx=20, pady=20)
-        close_button = tk.Button(window, text="Close", command=window.destroy, font=("Arial", 12))
-        close_button.pack(pady=10)
+        ct.windll.user32.MessageBoxW(0, mess, wind_title, 0)
 
-        window.mainloop()
-    
     def action_id_reset(self):
         """
         resets the value of self.action_id to None
