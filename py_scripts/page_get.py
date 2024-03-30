@@ -5,6 +5,7 @@ import urllib.parse
 import ssl
 import socket
 import rule34Py
+import rule34Py.post
 
 class PageGet:
     def __init__(self):
@@ -133,6 +134,26 @@ class PageGet:
             :changes self.newposts
             """
             self.newposts = new_save - old_save
+    
+    def post_type(self, sett: str) -> tuple:
+        """
+        returns the amount of new content by type of content
+
+        :uses the settings for counting
+        :returns tuple(int|None, int|None, int|None)
+        """
+        amount_i = 0
+        amount_g = 0
+        amount_v = 0
+        posts = self.r34.search([self.tag], page_id=0, limit=self.newposts)
+        for i in range (len(posts)):
+            if sett[0] == '1' and posts[i].content_type == 'image':
+                amount_i += 1
+            if sett[1] == '1' and posts[i].content_type == "gif":
+                amount_g += 1
+            if sett[2] == '1' and posts[i].content_type == "video":
+                amount_v += 1
+        return (None if sett[0] == "0" else amount_i, None if sett[1] == "0" else amount_g, None if sett[2] == "0" else amount_v)
 
     def is_tag_none(self) -> bool:
         """
