@@ -135,7 +135,7 @@ class PageGet:
             """
             self.newposts = new_save - old_save
     
-    def post_type(self, sett: str) -> tuple:
+    def post_type(self, sett: str) -> list:
         """
         returns the amount of new content by type of content
 
@@ -145,6 +145,8 @@ class PageGet:
         amount_i = 0
         amount_g = 0
         amount_v = 0
+        if self.newposts == 0:
+            return [None, None, None]
         posts = self.r34.search([self.tag], page_id=0, limit=self.newposts)
         for i in range (len(posts)):
             if sett[0] == '1' and posts[i].content_type == 'image':
@@ -153,7 +155,7 @@ class PageGet:
                 amount_g += 1
             if sett[2] == '1' and posts[i].content_type == "video":
                 amount_v += 1
-        return (None if sett[0] == "0" else amount_i, None if sett[1] == "0" else amount_g, None if sett[2] == "0" else amount_v)
+        return [None if sett[0] == "0" or amount_i == 0 else amount_i, None if sett[1] == "0" or amount_g == 0 else amount_g, None if sett[2] == "0" or amount_v == 0 else amount_v]
 
     def is_tag_none(self) -> bool:
         """
