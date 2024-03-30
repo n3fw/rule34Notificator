@@ -47,7 +47,6 @@ class RunApp():
             if self.data.config.items("tags") == [] or self.data.config.items("tags") == None:
                 self.ui.print_message("No tags saved as favorites !", "TagNotFound")
             else:
-                print(self.notifs)
                 self.ui.button_notif_clicked(self.notifs)
 
     def update(self):
@@ -59,6 +58,7 @@ class RunApp():
         self.data.config.read("config.ini")
         list_tag = self.data.config.items("tags")
         for i in range (len(list_tag)):
+            print(f'processing tag "{list_tag[i][1]}"')
             self.page.add_tag(list_tag[i][1])
             self.page.page_amount()
             self.page.number_post_by_tag()
@@ -109,6 +109,9 @@ class RunApp():
         return self.ui.action_id == None
     
     def launch(self):
+        """
+        checks is connection to rule34 is succesfull
+        """
         if self.data.is_first_launch():
             self.data.create_config()
         if self.page.net_check() == False:
