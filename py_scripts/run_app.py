@@ -47,6 +47,7 @@ class RunApp():
             if self.data.config.items("tags") == [] or self.data.config.items("tags") == None:
                 self.ui.print_message("No tags saved as favorites !", "TagNotFound")
             else:
+                print(self.notifs)
                 self.ui.button_notif_clicked(self.notifs)
 
     def update(self):
@@ -89,10 +90,11 @@ class RunApp():
         self.notifs = []
         self.data.config.read("config.ini")
         list_tag = self.data.config.items("tags")
+        list_sett = self.data.config.items("settings")
         for i in range (len(list_tag)):
             self.page.add_tag(list_tag[i][1])
             self.page.calc_new_posts(int(self.for_notif[i][1]), self.for_notif[i][2])
-            self.notifs.append((list_tag[i][1], self.page.get_newposts()))
+            self.notifs.append((list_tag[i][1], self.page.post_type(list_sett[i][1])))
 
     def reset_action(self):
         """
